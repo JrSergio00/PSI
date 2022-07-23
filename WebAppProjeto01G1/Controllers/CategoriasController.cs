@@ -76,50 +76,74 @@ namespace WebAppProjeto01G1.Controllers
         // POST: Categorias/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Fabricante fabricante)
+        public ActionResult Edit(Categoria categoria)
         {
             if (ModelState.IsValid)
             {
                 //fabricantes.Remove(
                 //fabricantes.Where(c => c.FabricanteId == fabricante.FabricanteId).First());
                 //fabricantes.Add(fabricante);
-                context.Entry(fabricante).State = EntityState.Modified;
+                context.Entry(categoria).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(fabricante);
+            return View(categoria);
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Categoria categoria)
-        {
-            categorias.Remove(
-            categorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
-            categorias.Add(categoria);
-            return RedirectToAction("Index");
-        }
-
+        // GET: Categorias/Details/5
         [HttpGet]
-        public ActionResult Details(long id)
+        public ActionResult Details(long? id)
         {
-            return View(categorias.Where(m => m.CategoriaId == id).First());
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Categoria categoria = context.Categorias.Find(id);
+            //Fabricante fabricante = fabricantes.Where(m => m.FabricanteId == id).First();
+            if (fabricante == null)
+            {
+                return HttpNotFound();
+            }
+            return View(categoria);
+            
+            
+            //return View(categorias.Where(m => m.CategoriaId == id).First());
         }
-
+           
+        //GET: Categorias/Delete/5
         [HttpGet]
-        public ActionResult Delete(long id)
+        public ActionResult Delete(long? id)
         {
-            return View(categorias.Where(m => m.CategoriaId == id).First());
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Categoria categoria = context.Categorias.Find(id);
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+            return View(categoria);
+            
+            
+            //return View(categorias.Where(m => m.CategoriaId == id).First());
         }
 
+        //POST: Categorias/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Categoria categoria)
-        {
-            categorias.Remove(
-              categorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
+        {   
+            Categoria categoria = context.Categorias.Find(id);
+            context.Categorias.Remove(categoria);
+            context.SaveChanges();
+            TempData["Message"] = "Categoria " + categoria.Nome.ToUpper() + " foi removida";
             return RedirectToAction("Index");
+
+
+            //categorias.Remove(
+              //categorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
+            //return RedirectToAction("Index");
         }
 
 
