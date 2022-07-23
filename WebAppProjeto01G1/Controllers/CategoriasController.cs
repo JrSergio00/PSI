@@ -4,48 +4,92 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebAppProjeto01G1.Models;
+using System.Data;
+using System.Data.OleDb;
+using System.Net;
+using System.Data.Entity;
 
 namespace WebAppProjeto01G1.Controllers
 {
     public class CategoriasController : Controller
     {
 
-        private static IList<Categoria> categorias = new List<Categoria>()
+        private EFContext context = new EFContext();
+        /*private static IList<Categoria> categorias = new List<Categoria>()
         {
             new Categoria() { CategoriaId = 1, Nome = "Notebooks"},
             new Categoria() { CategoriaId = 2, Nome = "Monitores"},
             new Categoria() { CategoriaId = 3, Nome = "Impressoras"},
             new Categoria() { CategoriaId = 4, Nome = "Mouses"},
             new Categoria() { CategoriaId = 5, Nome = "Desktops"}
-        };
+        };*/
 
         // GET: Categorias
         public ActionResult Index()
         {
-            return View(categorias);
+            //return View(categorias);
+            return View(context.Categorias.OrderBy(c => c.Nome));
         }
 
-        // GET: Categorias
+        // GET: Create
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
+        // POST: CREATE
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Categoria categoria)
         {
-            categorias.Add(categoria);
-            categoria.CategoriaId = categorias.Select(m => m.CategoriaId).Max() + 1;
+            //categorias.Add(categoria);
+            //categoria.CategoriaId = categorias.Select(m => m.CategoriaId).Max() + 1;
+            context.Categorias.Add(categoria);
+            context.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        //GET: Categorias/Edit/5
         [HttpGet]
         public ActionResult Edit(long id)
         {
-            return View(categorias.Where(m => m.CategoriaId == id).First());
+            if (id == null)
+            {
+                //return RedirectToAction("PaginaErro");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Categoria categoria = context.Categorias.Find(id);
+            //Categoria categoria = categorias.Where(m => m.CategoriaId == id).First();
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+            return View(categoria);
+
+
+            //return View(categorias.Where(m => m.CategoriaId == id).First());
         }
+
+
+
+        // POST: Categorias/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Fabricante fabricante)
+        {
+            if (ModelState.IsValid)
+            {
+                //fabricantes.Remove(
+                //fabricantes.Where(c => c.FabricanteId == fabricante.FabricanteId).First());
+                //fabricantes.Add(fabricante);
+                context.Entry(fabricante).State = EntityState.Modified;
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(fabricante);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
