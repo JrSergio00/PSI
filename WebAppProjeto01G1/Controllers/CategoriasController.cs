@@ -80,9 +80,6 @@ namespace WebAppProjeto01G1.Controllers
         {
             if (ModelState.IsValid)
             {
-                //fabricantes.Remove(
-                //fabricantes.Where(c => c.FabricanteId == fabricante.FabricanteId).First());
-                //fabricantes.Add(fabricante);
                 context.Entry(categoria).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -99,7 +96,6 @@ namespace WebAppProjeto01G1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Categoria categoria = context.Categorias.Find(id);
-            //Fabricante fabricante = fabricantes.Where(m => m.FabricanteId == id).First();
             if (fabricante == null)
             {
                 return HttpNotFound();
