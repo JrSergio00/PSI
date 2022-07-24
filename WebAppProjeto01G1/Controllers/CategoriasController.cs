@@ -13,7 +13,6 @@ namespace WebAppProjeto01G1.Controllers
 {
     public class CategoriasController : Controller
     {
-
         private EFContext context = new EFContext();
         /*private static IList<Categoria> categorias = new List<Categoria>()
         {
@@ -52,7 +51,7 @@ namespace WebAppProjeto01G1.Controllers
 
         //GET: Categorias/Edit/5
         [HttpGet]
-        public ActionResult Edit(long id)
+        public ActionResult Edit(long? id)
         {
             if (id == null)
             {
@@ -96,7 +95,7 @@ namespace WebAppProjeto01G1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Categoria categoria = context.Categorias.Find(id);
-            if (fabricante == null)
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
@@ -128,7 +127,7 @@ namespace WebAppProjeto01G1.Controllers
         //POST: Categorias/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Categoria categoria)
+        public ActionResult Delete(long id)
         {   
             Categoria categoria = context.Categorias.Find(id);
             context.Categorias.Remove(categoria);
