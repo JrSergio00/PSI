@@ -155,6 +155,7 @@
     <Content Include="Content\DataTables-1.10.2\images\xls_hover.png" />
     <Content Include="Content\DataTables-1.10.2\swf\copy_csv_xls.swf" />
     <Content Include="Content\DataTables-1.10.2\swf\copy_csv_xls_pdf.swf" />
+    <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.responsive.scss" />
@@ -207,11 +208,13 @@
     <Compile Include="Context\EFContext.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\FabricantesController.cs" />
+    <Compile Include="Controllers\ProdutosControllerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Fabricante.cs" />
+    <Compile Include="Models\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +232,8 @@
     <Content Include="Views\Fabricantes\Details.cshtml" />
     <Content Include="Views\Fabricantes\Delete.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\ProdutosController\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
