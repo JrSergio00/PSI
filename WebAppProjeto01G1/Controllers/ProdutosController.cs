@@ -7,7 +7,7 @@ using WebAppProjeto01G1.Models;
 
 namespace WebAppProjeto01G1.Controllers
 {
-    public class ProdutosControllerController : Controller
+    public class ProdutosController : Controller
     {
         private EFContext context = new EFContext();
         // GET: ProdutosController
