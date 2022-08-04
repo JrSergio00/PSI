@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebAppProjeto01G1.Models;
+using System.Data.Entity;
+using System.Net;
 
 namespace WebAppProjeto01G1.Controllers
 {
@@ -13,7 +15,10 @@ namespace WebAppProjeto01G1.Controllers
         // GET: ProdutosController
         public ActionResult Index()
         {
-            return View(context.Produtos.OrderBy(c => c.Nome));
+            var produtos =
+            context.Produtos.Include(c => c.Categoria).Include(f => f.Fabricante).
+            OrderBy(n => n.Nome);
+            return View(produtos);
         }
 
         // GET: ProdutosController/Details/5
@@ -25,29 +30,47 @@ namespace WebAppProjeto01G1.Controllers
         // GET: ProdutosController/Create
         public ActionResult Create()
         {
+            ViewBag.CategoriaId = new SelectList(context.Categorias.OrderBy(b => b.Nome),"CategoriaId", "Nome");
+            ViewBag.FabricanteId = new SelectList(context.Fabricantes.OrderBy(b => b.Nome),
+            "FabricanteId", "Nome");
             return View();
         }
 
         // POST: ProdutosController/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Produto produto)
         {
             try
             {
                 // TODO: Add insert logic here
 
+                context.Produtos.Add(produto);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(produto);
             }
         }
 
         // GET: ProdutosController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Produto produto = context.Produtos.Find(id);
+            if (produto == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CategoriaId = new SelectList(context.Categorias.OrderBy(b => b.Nome), "CategoriaId",
+            "Nome", produto.CategoriaId);
+            ViewBag.FabricanteId = new SelectList(context.Fabricantes.OrderBy(b => b.Nome), "FabricanteId",
+            "Nome", produto.FabricanteId);
+            return View(produto);
         }
 
         // POST: ProdutosController/Edit/5
