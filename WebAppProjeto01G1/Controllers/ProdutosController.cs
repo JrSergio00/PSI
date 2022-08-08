@@ -109,6 +109,7 @@ namespace WebAppProjeto01G1.Controllers
             Produto produto = context.Produtos.Where(p => p.ProdutoId == id).
             Include(c => c.Categoria).Include(f => f.Fabricante).First();
             if (produto == null)
+
             {
                 return HttpNotFound();
             }
