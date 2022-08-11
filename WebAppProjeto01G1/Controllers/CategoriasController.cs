@@ -70,8 +70,6 @@ namespace WebAppProjeto01G1.Controllers
             //return View(categorias.Where(m => m.CategoriaId == id).First());
         }
 
-
-
         // POST: Categorias/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,25 +84,22 @@ namespace WebAppProjeto01G1.Controllers
             return View(categoria);
         }
 
-        // GET: Categorias/Details/5
-        [HttpGet]
+        // GET: Fabricantes/Details/5
         public ActionResult Details(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categoria categoria = context.Categorias.Find(id);
+            Categoria categoria = context.Categorias.Where(f => f.CategoriaId == id).
+            Include("Fabricantes.Categoria").First();
             if (categoria == null)
             {
                 return HttpNotFound();
             }
             return View(categoria);
-            
-            
-            //return View(categorias.Where(m => m.CategoriaId == id).First());
         }
-           
+
         //GET: Categorias/Delete/5
         [HttpGet]
         public ActionResult Delete(long? id)
