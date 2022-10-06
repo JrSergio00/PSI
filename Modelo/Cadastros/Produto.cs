@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Modelo.Tabelas;
 
-namespace WebAppProjeto01G1.Models
+namespace Modelo.Cadastros
 {
     public class Produto
     {
