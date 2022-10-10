@@ -8,6 +8,8 @@ using System.Data;
 using System.Data.OleDb;
 using System.Net;
 using System.Data.Entity;
+using Modelo.Cadastros;
+using Modelo.Tabelas;
 
 namespace WebAppProjeto01G1.Controllers
 {
