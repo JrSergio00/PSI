@@ -201,7 +201,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Context\EFContext.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\FabricantesController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
@@ -241,12 +240,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Context\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modelo\Modelo.csproj">
       <Project>{952FD63F-8CCB-469C-BD23-DD2B46AEB47E}</Project>
       <Name>Modelo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Serviço\Serviço.csproj">
+      <Project>{64a6fac3-ed37-4fb8-9d96-e85a7238ada6}</Project>
+      <Name>Serviço</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
