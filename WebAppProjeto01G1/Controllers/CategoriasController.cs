@@ -90,10 +90,10 @@ namespace WebAppProjeto01G1.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(
-                HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Categoria fabricante = categoriaServico.ObterCategoriaPorId((long)id);
+
             if (fabricante == null)
             {
                 return HttpNotFound();
