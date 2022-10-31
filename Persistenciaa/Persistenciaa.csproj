@@ -58,9 +58,18 @@
     <Compile Include="DAL\Cadastros\FabricanteDAL.cs" />
     <Compile Include="DAL\Cadastros\ProdutoDAL.cs" />
     <Compile Include="DAL\Tabelas\CategoriaDAL.cs" />
+    <Compile Include="Migrations\202210201417195_InitialCreate.cs" />
+    <Compile Include="Migrations\202210201417195_InitialCreate.Designer.cs">
+      <DependentUpon>202210201417195_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202210201417195_InitialCreate.resx">
+      <DependentUpon>202210201417195_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modelo\Modelo.csproj">
       <Project>{952fd63f-8ccb-469c-bd23-dd2b46aeb47e}</Project>
