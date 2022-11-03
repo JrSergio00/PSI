@@ -120,10 +120,12 @@ namespace WebAppProjeto01G1.Controllers
                     produtoServico.GravarProduto(produto);
                     return RedirectToAction("Index");
                 }
+                PopularViewBag(produto);
                 return View(produto);
             }
             catch
             {
+
                 return View(produto);
             }
         }

@@ -10,7 +10,8 @@ namespace Persistenciaa.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "Persistenciaa.Contexts.EFContext";
+            AutomaticMigrationDataLossAllowed = true;
+            ContextKey = "Persistencia.Contexts.EFContext";
         }
 
         protected override void Seed(Persistenciaa.Contexts.EFContext context)
