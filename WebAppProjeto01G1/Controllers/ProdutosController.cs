@@ -45,20 +45,20 @@ namespace WebAppProjeto01G1.Controllers
             return ObterVisaoProdutoPorId(id);
         }
 
+
+
         // POST: Produtos/Edit/5
         [HttpPost]
-        public ActionResult Edit(Produto produto)
+        public ActionResult Edit(Produto produto, HttpPostedFileBase logotipo = null, string chkRemoverImagem = null)
         {
-            return GravarProduto(produto);
+            return GravarProduto(produto, logotipo, chkRemoverImagem);
         }
-
 
         // GET: Produtos/Delete/5
         public ActionResult Delete(long? id)
         {
             return ObterVisaoProdutoPorId(id);
         }
-
 
         // POST: Produtos/Delete/5
         [HttpPost]
@@ -76,7 +76,6 @@ namespace WebAppProjeto01G1.Controllers
             }
         }
 
-
         private ActionResult ObterVisaoProdutoPorId(long? id)
         {
             if (id == null)
@@ -90,7 +89,6 @@ namespace WebAppProjeto01G1.Controllers
             }
             return View(produto);
         }
-
 
         private void PopularViewBag(Produto produto = null)
         {
@@ -128,6 +126,51 @@ namespace WebAppProjeto01G1.Controllers
 
                 return View(produto);
             }
+        }
+
+        private byte[] SetLogotipo(HttpPostedFileBase logotipo)
+        {
+            var bytesLogotipo = new byte[logotipo.ContentLength];
+            logotipo.InputStream.Read(bytesLogotipo, 0, logotipo.ContentLength);
+            return bytesLogotipo;
+        }
+
+        private ActionResult GravarProduto(Produto produto,HttpPostedFileBase logotipo, string chkRemoverImagem)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (chkRemoverImagem != null)
+                    {
+                        produto.Logotipo = null;
+                    }
+                    if (logotipo != null)
+                    {
+                        produto.LogotipoMimeType = logotipo.ContentType;
+                        produto.Logotipo = SetLogotipo(logotipo);
+                    }
+                    produtoServico.GravarProduto(produto);
+                    return RedirectToAction("Index");
+                }
+                PopularViewBag(produto);
+                return View(produto);
+            }
+            catch
+            {
+                PopularViewBag(produto);
+                return View(produto);
+            }
+        }
+
+        public FileContentResult GetLogotipo(long id)
+        {
+            Produto produto = produtoServico.ObterProdutoPorId(id);
+            if (produto != null)
+            {
+                return File(produto.Logotipo, produto.LogotipoMimeType);
+            }
+            return null;
         }
 
     }

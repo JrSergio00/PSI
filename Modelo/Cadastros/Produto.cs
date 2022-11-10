@@ -23,6 +23,8 @@ namespace Modelo.Cadastros
         [Required(ErrorMessage = "Informe adata de cadastro do produto")]
         public DateTime? DataCadastro{ get; set; }
 
+        public string LogotipoMimeType { get; set; }
+        public byte[] Logotipo { get; set; }
 
         public long? CategoriaId { get; set; }
         [DisplayName("Fabricante")]
