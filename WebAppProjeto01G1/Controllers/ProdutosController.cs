@@ -31,6 +31,13 @@ namespace WebAppProjeto01G1.Controllers
             return ObterVisaoProdutoPorId(id);
         }
 
+        // GET: ProdutosController/Create
+        public ActionResult Create()
+        {
+            PopularViewBag();
+            return View();
+        }
+
         // POST: Produtos/Create
         [HttpPost]
         public ActionResult Create(Produto produto)
