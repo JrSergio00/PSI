@@ -33,9 +33,13 @@
                         }
                         else
                         {
-                        <div class="panel-body">
-                            <img class="img-thumbnail"src="@Url.Action("GetLogotipo", "Produtos", new { id = Model.ProdutoId })"style="display:block; margin-left:auto; margin-right:auto;" />
-                        </div>
+                            <div class="panel-body">
+                                <img class="img-thumbnail"
+                                     src="@Url.Action("GetLogotipo2", "Produtos",new { id = Model.ProdutoId })"style="display:block; margin-left:auto; margin-right:auto;" />
+                            </div>
+                            <div class="panel-body">
+                                <img class="img-thumbnail" src="@Url.Action("GetLogotipo", "Produtos", new { id = Model.ProdutoId })" style="display:block; margin-left:auto; margin-right:auto;" />
+                            </div>
                             <div class="panel-footer">
                                 <div class="checkbox">
                                     <label>
@@ -44,8 +48,8 @@
                                     </label>
                                 </div>
                             </div>
-                        }
-                    </div>
+                            }
+                        </div>
                 </div>
 
 
