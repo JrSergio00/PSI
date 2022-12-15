@@ -143,7 +143,7 @@ namespace WebAppProjeto01G1.Controllers
             return bytesLogotipo;
         }
 
-        private ActionResult GravarProduto(Produto produto,HttpPostedFileBase logotipo, string chkRemoverImagem)
+        private ActionResult GravarProduto(Produto produto, HttpPostedFileBase logotipo, string chkRemoverImagem)
         {
             try
             {
@@ -157,6 +157,10 @@ namespace WebAppProjeto01G1.Controllers
                     {
                         produto.LogotipoMimeType = logotipo.ContentType;
                         produto.Logotipo = SetLogotipo(logotipo);
+                        produto.NomeArquivo = logotipo.FileName;
+                        produto.TamanhoArquivo = logotipo.ContentLength;
+                        string strFileName = Server.MapPath("~/App_Data/") + Path.GetFileName(logotipo.FileName);
+                        logotipo.SaveAs(strFileName);
                     }
                     produtoServico.GravarProduto(produto);
                     return RedirectToAction("Index");
@@ -197,12 +201,15 @@ namespace WebAppProjeto01G1.Controllers
             }
             return null;
         }
+
         public ActionResult DownloadArquivo(long id)
         {
             Produto produto = produtoServico.ObterProdutoPorId(id);
-            FileStream fileStream = new FileStream(Server.MapPath("~/App_Data/" + produto.NomeArquivo), FileMode.Create, FileAccess.Write);
+            FileStream fileStream = new FileStream(Server.MapPath(
+                "~/App_Data/" + produto.NomeArquivo), FileMode.Create,
+                FileAccess.Write);
             fileStream.Write(produto.Logotipo, 0,
-            Convert.ToInt32(produto.TamanhoArquivo));
+                Convert.ToInt32(produto.TamanhoArquivo));
             fileStream.Close();
             return File(fileStream.Name, produto.LogotipoMimeType, produto.NomeArquivo);
         }
@@ -215,6 +222,5 @@ namespace WebAppProjeto01G1.Controllers
             return File(fileStream.Name, produto.LogotipoMimeType, produto.NomeArquivo);
 
         }
-
     }
 }
