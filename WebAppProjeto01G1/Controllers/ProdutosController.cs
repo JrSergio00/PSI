@@ -135,14 +135,6 @@ namespace WebAppProjeto01G1.Controllers
                 return View(produto);
             }
         }
-
-        private byte[] SetLogotipo(HttpPostedFileBase logotipo)
-        {
-            var bytesLogotipo = new byte[logotipo.ContentLength];
-            logotipo.InputStream.Read(bytesLogotipo, 0, logotipo.ContentLength);
-            return bytesLogotipo;
-        }
-
         private ActionResult GravarProduto(Produto produto, HttpPostedFileBase logotipo, string chkRemoverImagem)
         {
             try
@@ -174,16 +166,6 @@ namespace WebAppProjeto01G1.Controllers
                 return View(produto);
             }
         }
-
-        public FileContentResult GetLogotipo(long id)
-        {
-            Produto produto = produtoServico.ObterProdutoPorId(id);
-            if (produto != null)
-            {
-                return File(produto.Logotipo, produto.LogotipoMimeType);
-            }
-            return null;
-        }
         public FileContentResult GetLogotipo2(long id)
         {
             Produto produto = produtoServico.ObterProdutoPorId(id);
@@ -201,18 +183,6 @@ namespace WebAppProjeto01G1.Controllers
             }
             return null;
         }
-
-        public ActionResult DownloadArquivo(long id)
-        {
-            Produto produto = produtoServico.ObterProdutoPorId(id);
-            FileStream fileStream = new FileStream(Server.MapPath(
-                "~/App_Data/" + produto.NomeArquivo), FileMode.Create,
-                FileAccess.Write);
-            fileStream.Write(produto.Logotipo, 0,
-                Convert.ToInt32(produto.TamanhoArquivo));
-            fileStream.Close();
-            return File(fileStream.Name, produto.LogotipoMimeType, produto.NomeArquivo);
-        }
         public ActionResult DownloadArquivo2(long id)
         {
 
@@ -221,6 +191,34 @@ namespace WebAppProjeto01G1.Controllers
             produto.NomeArquivo), FileMode.Open, FileAccess.Read);
             return File(fileStream.Name, produto.LogotipoMimeType, produto.NomeArquivo);
 
+        }
+
+        private byte[] SetLogotipo(HttpPostedFileBase logotipo)
+        {
+            var bytesLogotipo = new byte[logotipo.ContentLength];
+            logotipo.InputStream.Read(bytesLogotipo, 0, logotipo.ContentLength);
+            return bytesLogotipo;
+        }
+
+        public FileContentResult GetLogotipo(long id)
+        {
+            Produto produto = produtoServico.ObterProdutoPorId(id);
+            if (produto != null)
+            {
+                return File(produto.Logotipo, produto.LogotipoMimeType);
+            }
+            return null;
+        }
+        public ActionResult DownloadArquivo(long id)
+        {
+            Produto produto = produtoServico.ObterProdutoPorId(id);
+            FileStream fileStream = new FileStream(Server.MapPath(
+            "~/" + produto.NomeArquivo), FileMode.Create,
+            FileAccess.Write);
+            fileStream.Write(produto.Logotipo, 0,
+            Convert.ToInt32(produto.TamanhoArquivo));
+            fileStream.Close();
+            return File(fileStream.Name, produto.LogotipoMimeType, produto.NomeArquivo);
         }
     }
 }
