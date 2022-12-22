@@ -1,5 +1,6 @@
 ﻿
-@{
+@model IEnumerable<Modelo.Cadastros.Produto>
+@{ 
     Layout = null;
 }
 
@@ -29,14 +30,132 @@
         <section id="upper">
             <img src="~/css/home/imagens/banner1.png" alt="Temos TUDO para você fazer um churrasco completo!">
         </section>
-        <section id="down">
-            <h2>Bebidas em destaque</h2>
-            <ul>
-                <li>
-
-                </li>
-            </ul>
+        <section class="down">
+            <h2>Produtos em destaque</h2>
+            <br />
         </section>
+
+        <section class="list">
+            <div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>Categoria</th>
+                                <th>Fabricante</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if (item.Destaque == true)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Fabricante.Nome)
+                                        </td>
+                                        <td>
+                                            <div>
+                                                @if (item.NomeArquivo == null)
+                                                {
+                                                    <div>
+                                                        Nenhuma imagem adicionada
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div>
+                                                        <img src="@Url.Action("GetLogotipo2", "Produtos", new { id = item.ProdutoId })"
+                                                             style="display:block; margin-left:auto; margin-right:auto;" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="down">
+            <h2>Produtos lançados nos últimos 30 dias</h2>
+            <br />
+        </section>
+
+        <section class="list">
+
+            <div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>Categoria</th>
+                                <th>Fabricante</th>
+                                <th>Data de cadastro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                if (item.DataCadastro.AddDays(30) >= DateTime.Now)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Fabricante.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DataCadastro)
+                                        </td>
+                                        <td>
+                                            <div>
+                                                @if (item.NomeArquivo == null)
+                                                {
+                                                    <div class="form-control-static">
+                                                        Nenhuma imagem adicionada
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div>
+                                                        <img src="@Url.Action("GetLogotipo2", "Produtos", new { id = item.ProdutoId })" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+
     </main>
     <footer>
         <img src="~/css/home/imagens/logoFooter.png" alt="Logo InfoWeb Store">

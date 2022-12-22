@@ -36,15 +36,15 @@ nav ul {
     list-style: none;
 }
 
-    nav ul li a {
-        color: black;
-        text-decoration: none;
-        padding: 0.8em;
-    }
+nav ul li a {
+    color: black;
+    text-decoration: none;
+    padding: 0.8em;
+}
 
-    nav ul li:hover {
-        background-color: #dedede;
-    }
+nav ul li:hover {
+    background-color: #dedede;
+}
 
 #upper {
     display: flex;
@@ -62,8 +62,14 @@ nav ul {
     font-size: medium;
 }
 
-#down ul {
+.down ul {
     list-style: none;
+}
+
+.list{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 footer {
@@ -85,3 +91,5 @@ footer p {
 footer img {
     height: 2em;
 }
+
+
