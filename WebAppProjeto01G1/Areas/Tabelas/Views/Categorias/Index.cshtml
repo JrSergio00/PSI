@@ -37,9 +37,9 @@
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
-                            @Html.ActionLink("Alterar", "Edit", new { id = item.CategoriaId }) |
-                            @Html.ActionLink("Detalhes", "Details", new { id = item.CategoriaId }) |
-                            @Html.ActionLink("Eliminar", "Delete", new { id = item.CategoriaId })
+                            @Html.ActionLink("Alterar", "Edit", new { id = item.CategoriaId, Area = "Tabelas" }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.CategoriaId, Area = "Tabelas" }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.CategoriaId, Area = "Tabelas" })
                         </td>
                     </tr>
                 }
@@ -47,7 +47,7 @@
         </table>
     </div>
     <div class="panel-footer panel-info">
-        @Html.ActionLink("Registrar uma nova CATEGORIA", "Create", null, new { @class = "btn btn-success" })
+        @Html.ActionLink("Registrar uma nova CATEGORIA", "Create", null, new { @class = "btn btn-success", Area = "Tabelas" })
     </div>
 </div>
 @section styles{

@@ -11,7 +11,7 @@
             Alteração dos dados de um PRODUTO
         </div>
         <div class="panel-body">
-            @Html.Partial("~/Views/Produto/_PartialEditContentPanel.cshtml", Model)
+            @Html.Partial("~/Areas/Cadastros/Views/_PartialEditContentPanel.cshtml", Model)
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ProdutoId)

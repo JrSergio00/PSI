@@ -26,10 +26,10 @@
     </div>
     <div class="panel-footer panel-info">
         @Html.ActionLink("Alterar", "Edit", new { id = Model.CategoriaId },
-        new { @class = "btn btn-info" })
+        new { @class = "btn btn-info", Area = "Tabelas" })
         @Html.ActionLink("Retornar para a listagem", "Index", null,
-        new { @class = "btn btn-info" })
+        new { @class = "btn btn-info", Area = "Tabelas" })
     </div>
 </div>
 
-@Html.Partial("~/Views/Produtos/_PorCategoria.cshtml", Model.Produtos.ToList())
+@Html.Partial("~/Areas/Cadastros/Views/Produtos/_PorCategoria.cshtml", Model.Produtos.ToList())
