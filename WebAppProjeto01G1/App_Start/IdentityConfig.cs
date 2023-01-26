@@ -6,8 +6,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using WebApplication1.DAL;
-using WebApplication1.Infraestrutura;
+using WebAppProjeto01G1.DAL;
+using WebAppProjeto01G1.Infraestrutura;
 
 namespace WebApplication1
 {
